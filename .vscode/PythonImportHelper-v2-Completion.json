@@ -1,0 +1,137 @@
+[
+    {
+        "label": "sounddevice",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sounddevice",
+        "description": "sounddevice",
+        "detail": "sounddevice",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "callback",
+        "kind": 2,
+        "importPath": "fft_test",
+        "description": "fft_test",
+        "peekOfCode": "def callback(indata, frames, time, status):\n    audio = indata[:, 0]\n    fft = np.fft.rfft(audio)\n    magnitude = np.abs(fft)\n    freqs = np.fft.rfftfreq(len(audio), 1 / RATE)\n    dominant = np.argmax(magnitude)\n    print(\n        f\"\\rDominan : {freqs[dominant]:7.1f} Hz | Energy : {magnitude[dominant]:.3f}\",\n        end=\"\",\n    )",
+        "detail": "fft_test",
+        "documentation": {}
+    },
+    {
+        "label": "RATE",
+        "kind": 5,
+        "importPath": "fft_test",
+        "description": "fft_test",
+        "peekOfCode": "RATE = 44100\nBLOCK = 2048\ndef callback(indata, frames, time, status):\n    audio = indata[:, 0]\n    fft = np.fft.rfft(audio)\n    magnitude = np.abs(fft)\n    freqs = np.fft.rfftfreq(len(audio), 1 / RATE)\n    dominant = np.argmax(magnitude)\n    print(\n        f\"\\rDominan : {freqs[dominant]:7.1f} Hz | Energy : {magnitude[dominant]:.3f}\",",
+        "detail": "fft_test",
+        "documentation": {}
+    },
+    {
+        "label": "BLOCK",
+        "kind": 5,
+        "importPath": "fft_test",
+        "description": "fft_test",
+        "peekOfCode": "BLOCK = 2048\ndef callback(indata, frames, time, status):\n    audio = indata[:, 0]\n    fft = np.fft.rfft(audio)\n    magnitude = np.abs(fft)\n    freqs = np.fft.rfftfreq(len(audio), 1 / RATE)\n    dominant = np.argmax(magnitude)\n    print(\n        f\"\\rDominan : {freqs[dominant]:7.1f} Hz | Energy : {magnitude[dominant]:.3f}\",\n        end=\"\",",
+        "detail": "fft_test",
+        "documentation": {}
+    },
+    {
+        "label": "audio_callback",
+        "kind": 2,
+        "importPath": "mic_level",
+        "description": "mic_level",
+        "peekOfCode": "def audio_callback(indata, frames, time, status):\n    volume = np.linalg.norm(indata)\n    print(f\"\\rVolume : {volume:.5f}\", end=\"\")\nwith sd.InputStream(callback=audio_callback):\n    print(\"Mendengarkan mikrofon... (CTRL+C untuk keluar)\")\n    while True:\n        pass",
+        "detail": "mic_level",
+        "documentation": {}
+    },
+    {
+        "label": "THRESHOLD",
+        "kind": 5,
+        "importPath": "mic_level",
+        "description": "mic_level",
+        "peekOfCode": "THRESHOLD = 0.05\ndef audio_callback(indata, frames, time, status):\n    volume = np.linalg.norm(indata)\n    print(f\"\\rVolume : {volume:.5f}\", end=\"\")\nwith sd.InputStream(callback=audio_callback):\n    print(\"Mendengarkan mikrofon... (CTRL+C untuk keluar)\")\n    while True:\n        pass",
+        "detail": "mic_level",
+        "documentation": {}
+    },
+    {
+        "label": "callback",
+        "kind": 2,
+        "importPath": "tap_detector",
+        "description": "tap_detector",
+        "peekOfCode": "def callback(indata, frames, time_info, status):\n    global last_peak\n    global last_tap\n    peak = np.max(np.abs(indata))\n    change = peak - last_peak\n    now = time.time()\n    if peak > THRESHOLD and change > DELTA and now - last_tap > COOLDOWN:\n        print(f\">>> KETUKAN ({peak:.3f}) <<<\")\n        last_tap = now\n    last_peak = peak",
+        "detail": "tap_detector",
+        "documentation": {}
+    },
+    {
+        "label": "THRESHOLD",
+        "kind": 5,
+        "importPath": "tap_detector",
+        "description": "tap_detector",
+        "peekOfCode": "THRESHOLD = 0.025\nDELTA = 0.020\nCOOLDOWN = 0.4\nlast_peak = 0\nlast_tap = 0\ndef callback(indata, frames, time_info, status):\n    global last_peak\n    global last_tap\n    peak = np.max(np.abs(indata))\n    change = peak - last_peak",
+        "detail": "tap_detector",
+        "documentation": {}
+    },
+    {
+        "label": "DELTA",
+        "kind": 5,
+        "importPath": "tap_detector",
+        "description": "tap_detector",
+        "peekOfCode": "DELTA = 0.020\nCOOLDOWN = 0.4\nlast_peak = 0\nlast_tap = 0\ndef callback(indata, frames, time_info, status):\n    global last_peak\n    global last_tap\n    peak = np.max(np.abs(indata))\n    change = peak - last_peak\n    now = time.time()",
+        "detail": "tap_detector",
+        "documentation": {}
+    },
+    {
+        "label": "COOLDOWN",
+        "kind": 5,
+        "importPath": "tap_detector",
+        "description": "tap_detector",
+        "peekOfCode": "COOLDOWN = 0.4\nlast_peak = 0\nlast_tap = 0\ndef callback(indata, frames, time_info, status):\n    global last_peak\n    global last_tap\n    peak = np.max(np.abs(indata))\n    change = peak - last_peak\n    now = time.time()\n    if peak > THRESHOLD and change > DELTA and now - last_tap > COOLDOWN:",
+        "detail": "tap_detector",
+        "documentation": {}
+    },
+    {
+        "label": "last_peak",
+        "kind": 5,
+        "importPath": "tap_detector",
+        "description": "tap_detector",
+        "peekOfCode": "last_peak = 0\nlast_tap = 0\ndef callback(indata, frames, time_info, status):\n    global last_peak\n    global last_tap\n    peak = np.max(np.abs(indata))\n    change = peak - last_peak\n    now = time.time()\n    if peak > THRESHOLD and change > DELTA and now - last_tap > COOLDOWN:\n        print(f\">>> KETUKAN ({peak:.3f}) <<<\")",
+        "detail": "tap_detector",
+        "documentation": {}
+    },
+    {
+        "label": "last_tap",
+        "kind": 5,
+        "importPath": "tap_detector",
+        "description": "tap_detector",
+        "peekOfCode": "last_tap = 0\ndef callback(indata, frames, time_info, status):\n    global last_peak\n    global last_tap\n    peak = np.max(np.abs(indata))\n    change = peak - last_peak\n    now = time.time()\n    if peak > THRESHOLD and change > DELTA and now - last_tap > COOLDOWN:\n        print(f\">>> KETUKAN ({peak:.3f}) <<<\")\n        last_tap = now",
+        "detail": "tap_detector",
+        "documentation": {}
+    },
+    {
+        "label": "callback",
+        "kind": 2,
+        "importPath": "wave_test",
+        "description": "wave_test",
+        "peekOfCode": "def callback(indata, frames, time, status):\n    samples = np.abs(indata[:, 0])\n    maximum = np.max(samples)\n    bars = int(maximum * 50)\n    print(\"█\" * bars)\nprint(\"Silakan bicara atau ketuk laptop...\")\nwith sd.InputStream(callback=callback):\n    while True:\n        pass",
+        "detail": "wave_test",
+        "documentation": {}
+    }
+]
